@@ -51,6 +51,8 @@ Run your apps immediately after generation.
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/Prompt2App.git
+   ```
+   ```bash
    cd Prompt2App
    ```
 
@@ -67,7 +69,11 @@ Run your apps immediately after generation.
    Ensure you are logged in and have the Copilot extension:
    ```bash
    gh auth login
+   ```
+   ```bash
    gh extension install github/gh-copilot
+   ```
+   ```bash
    gh copilot --version
    ```
 
