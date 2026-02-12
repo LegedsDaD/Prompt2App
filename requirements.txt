@@ -1,0 +1,4 @@
+rich
+questionary
+selenium
+webdriver-manager

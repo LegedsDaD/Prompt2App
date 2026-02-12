@@ -68,14 +68,18 @@ def run_cpp_app(file_path):
     if shutil.which("g++"):
         # Compiler exists, try to run
         exe_path = file_path.replace(".cpp", ".exe" if sys.platform == "win32" else "")
+        app_dir = os.path.dirname(os.path.abspath(file_path))
+        
         console.print("[cyan]Compiling locally...[/cyan]")
+        # Compiling in the same directory
         compile_result = subprocess.run(["g++", file_path, "-o", exe_path], capture_output=True, text=True)
+        
         if compile_result.returncode == 0:
             console.print("[cyan]Running in new console...[/cyan]")
             if sys.platform == "win32":
                 os.system(f'start cmd /k "{exe_path}"')
             else:
-                subprocess.run([exe_path])
+                subprocess.run([exe_path], cwd=app_dir)
             return
 
     # If no compiler or compilation failed, use Online Automation

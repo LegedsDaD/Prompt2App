@@ -279,9 +279,10 @@ def save_generated_app(suggestion, user_query, lang_choice, color_scheme, is_com
         if Confirm.ask("Save this app?"):
             app_name = Prompt.ask("App Name", default=f"app_{int(time.time())}")
             
+            os.makedirs(app_name, exist_ok=True)
             saved_path = ""
+            
             if is_complex or len(blocks) > 1:
-                os.makedirs(app_name, exist_ok=True)
                 for i, block in enumerate(blocks):
                     fname = block['filename']
                     if not fname:
@@ -300,8 +301,9 @@ def save_generated_app(suggestion, user_query, lang_choice, color_scheme, is_com
                 if "html" in lang_choice.lower(): ext = ".html"
                 elif "c++" in lang_choice.lower(): ext = ".cpp"
                 fname = f"{app_name}{ext}"
-                with open(fname, "w", encoding="utf-8") as f: f.write(block['code'])
-                saved_path = fname
+                full_path = os.path.join(app_name, fname)
+                with open(full_path, "w", encoding="utf-8") as f: f.write(block['code'])
+                saved_path = full_path
             
             metadata = {
                 "query": user_query,

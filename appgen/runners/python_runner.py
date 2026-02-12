@@ -25,8 +25,11 @@ def run_python_app(file_path):
         if pkg and pkg not in sys.builtin_module_names and pkg not in ['streamlit']:
                 detected_pkgs.add(pkg)
     
+    import os
+    app_dir = os.path.dirname(os.path.abspath(file_path))
+    
     # Heuristic: if it imports streamlit, run with streamlit
     if "import streamlit" in content:
-        subprocess.run(["streamlit", "run", file_path], check=True)
+        subprocess.run(["streamlit", "run", file_path], check=True, cwd=app_dir)
     else:
-        subprocess.run(["python", file_path], check=True)
+        subprocess.run([sys.executable, file_path], check=True, cwd=app_dir)
